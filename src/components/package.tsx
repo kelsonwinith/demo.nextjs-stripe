@@ -1,7 +1,6 @@
 "use client";
 
-import { PackagePopup } from "@/app/components/packagePopup";
-import usePackage from "@/app/hooks/package.hook";
+import { PackagePopup } from "@/components/packagePopup";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import usePackage from "@/hooks/package.hook";
 import { useState } from "react";
 
 export default function Package() {

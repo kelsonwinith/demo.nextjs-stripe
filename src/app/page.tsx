@@ -1,4 +1,4 @@
-import Package from "@/app/components/package";
+import Package from "@/components/package";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 

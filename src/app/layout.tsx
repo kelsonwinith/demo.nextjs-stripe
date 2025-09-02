@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import ReactQueryProvider from "./providers/reactQueryProvider";
+import ReactQueryProvider from "@/providers/reactQueryProvider";
 
 export default function RootLayout({
   children,
