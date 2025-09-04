@@ -26,7 +26,7 @@ export default function Package() {
       <div className="flex flex-col items-center justify-center">
         <span className="text-2xl font-bold">Available Packages</span>
         <div className="grid grid-cols-1 gap-6 py-8 md:grid-cols-3">
-          {data.map((pack: any) => (
+          {data.map((pack) => (
             <Card key={pack.id} className="min-w-[300px]">
               <CardHeader>
                 <CardTitle>{pack.name}</CardTitle>
@@ -34,7 +34,7 @@ export default function Package() {
               </CardHeader>
               <CardFooter className="flex justify-between">
                 <span className="text-lg font-bold">
-                  ${pack.price.toFixed(2)}
+                  {pack.price.toFixed(2)} {pack.currency.toUpperCase()}
                 </span>
                 <Button
                   onClick={() => {

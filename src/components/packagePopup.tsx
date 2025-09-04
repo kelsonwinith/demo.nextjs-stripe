@@ -1,11 +1,12 @@
+import Checkout from "@/components/checkout";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Package } from "@/types/package.type";
 import { Dispatch, RefObject } from "react";
 
 type PackagePopupProps = {
@@ -21,6 +22,7 @@ export function PackagePopup({ pkg, isOpen, setIsOpen }: PackagePopupProps) {
       name: "Donate",
       description: "Support us by donating!",
       price: 0,
+      currency: "thb",
     };
   }
 
@@ -31,8 +33,7 @@ export function PackagePopup({ pkg, isOpen, setIsOpen }: PackagePopupProps) {
           <DialogTitle>{pkg.current?.name}</DialogTitle>
           <DialogDescription>{pkg.current?.description}</DialogDescription>
         </DialogHeader>
-        <div>Hello</div>
-        <DialogFooter></DialogFooter>
+        <Checkout pkg={pkg} />
       </DialogContent>
     </Dialog>
   );

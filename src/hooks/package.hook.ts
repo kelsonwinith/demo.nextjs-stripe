@@ -1,4 +1,7 @@
+"use client";
+
 import { getPackage } from "@/lib/api";
+import { Package } from "@/types/package.type";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRef } from "react";
 

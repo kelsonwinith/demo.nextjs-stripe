@@ -10,7 +10,7 @@ export default function Home() {
         <ThemeToggle />
       </div>
       <div className="flex min-h-screen items-center justify-center">
-        <Suspense fallback={<Skeleton className="h-16 w-full" />}>
+        <Suspense fallback={<Skeleton className="h-36 w-1/3" />}>
           <Package />
         </Suspense>
       </div>
