@@ -7,9 +7,13 @@ export async function getPackage(): Promise<Package[]> {
   return response.json();
 }
 
-export async function getClientSecret(pkgId: string): Promise<string> {
-  const response = await fetch(
-    `${API_URL}/payment/create-payment-intent/${pkgId}`,
-  );
+export async function getClientSecret(pkg: Package | null): Promise<string> {
+  const response = await fetch(`${API_URL}/payment/create-payment-intent`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ pkg }),
+  });
   return response.json();
 }

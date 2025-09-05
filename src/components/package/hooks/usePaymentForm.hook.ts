@@ -1,25 +1,9 @@
 "use client";
 
-import { getClientSecret } from "@/lib/api";
-import { Package } from "@/types/package.type";
 import { useElements, useStripe } from "@stripe/react-stripe-js";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { RefObject, useState } from "react";
+import { useState } from "react";
 
-type UseCheckoutProps = {
-  pkg: RefObject<Package | null>;
-};
-
-export function useCheckout({ pkg }: UseCheckoutProps) {
-  const { data } = useSuspenseQuery({
-    queryKey: ["checkout"],
-    queryFn: async () => await getClientSecret(pkg.current?.id as string),
-  });
-
-  return { clientSecret: data };
-}
-
-export function usePayment() {
+export default function usePaymentForm() {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState<string | null>(null);
@@ -37,7 +21,7 @@ export function usePayment() {
         return_url: "http://localhost:3000/success",
         payment_method_data: {
           billing_details: {
-            email: "example@example.com",
+            email: "example@example.example",
           },
         },
       },

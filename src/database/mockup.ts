@@ -2,6 +2,13 @@ import { Package } from "@/types/package.type";
 
 export const mockPackages: Package[] = [
   {
+    id: "-1",
+    name: "A donation",
+    description: "A custom donation package",
+    price: 20,
+    currency: "thb",
+  },
+  {
     id: "0",
     name: "Basic Plan",
     description: "A basic subscription plan",

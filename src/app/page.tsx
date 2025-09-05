@@ -1,5 +1,5 @@
-import Package from "@/components/package";
-import { ThemeToggle } from "@/components/themeToggle";
+import Package from "@/components/package/index.component";
+import { ThemeToggle } from "@/components/themeToggle/index.component";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 

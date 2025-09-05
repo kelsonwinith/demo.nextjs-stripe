@@ -2,22 +2,24 @@ import { mockPackages } from "@/database/mockup";
 import { stripe } from "@/lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ pkgId: string }> },
-) {
+export async function POST(req: NextRequest) {
   try {
-    const { pkgId } = await params;
+    const body = await req.json();
+    const { pkg } = body;
 
-    const pkg = mockPackages.find((p) => p.id === pkgId);
-    if (!pkg) {
+    const valid_pkg = mockPackages.find((p) => p.id === pkg.id);
+
+    if (!valid_pkg) {
       return NextResponse.json({ error: "Package not found" }, { status: 404 });
     }
 
+    valid_pkg.price = pkg.price;
+
+    const amountInMinorUnit = valid_pkg.price * 100;
+
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: pkg.price * 100,
-      currency: pkg.currency,
-      receipt_email: "customer@example.com",
+      amount: amountInMinorUnit,
+      currency: valid_pkg.currency,
       automatic_payment_methods: { enabled: true },
     });
     return NextResponse.json(paymentIntent.client_secret);

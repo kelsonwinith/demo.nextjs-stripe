@@ -1,6 +1,10 @@
 "use client";
 
-import { PackagePopup } from "@/components/packagePopup";
+import { PackagePopup } from "@/components/package/components/packagePopup.component";
+import {
+  PackageProvider,
+  usePackageContext,
+} from "@/components/package/context/package.context";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,24 +13,33 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import usePackage from "@/hooks/package.hook";
+import { getPackage } from "@/lib/api";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 export default function Package() {
-  const { data, selectedPackage } = usePackage();
+  return (
+    <PackageProvider>
+      <PackageWithContext />
+    </PackageProvider>
+  );
+}
+
+export function PackageWithContext() {
+  const { data } = useSuspenseQuery({
+    queryKey: ["package"],
+    queryFn: getPackage,
+  });
   const [isOpen, setIsOpen] = useState(false);
+  const { selectedPackage } = usePackageContext();
 
   return (
     <>
-      <PackagePopup
-        pkg={selectedPackage}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-      />
+      <PackagePopup isOpen={isOpen} setIsOpen={setIsOpen} />
       <div className="flex flex-col items-center justify-center">
         <span className="text-2xl font-bold">Available Packages</span>
         <div className="grid grid-cols-1 gap-6 py-8 md:grid-cols-3">
-          {data.map((pack) => (
+          {data.slice(1).map((pack) => (
             <Card key={pack.id} className="min-w-[300px]">
               <CardHeader>
                 <CardTitle>{pack.name}</CardTitle>
@@ -53,7 +66,7 @@ export default function Package() {
               <span
                 onClick={() => {
                   setIsOpen(true);
-                  selectedPackage.current = null;
+                  selectedPackage.current = data[0];
                 }}
                 className="font-semibold underline"
               >
